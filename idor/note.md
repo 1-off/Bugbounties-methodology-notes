@@ -1,7 +1,10 @@
 ## idor
-Id substitution, put, del requests.
-Exercise: https://portswigger.net/web-security/access-control/lab-insecure-direct-object-references
-Video: https://www.youtube.com/watch?v=B_WESrC-wWs, https://www.youtube.com/watch?v=gINAtzdccts&list=PLbyncTkpno5FAC0DJYuJrEqHSMdudEffw&index=6
+Id substitution.
+- Exercise:
+  - https://portswigger.net/web-security/access-control/lab-insecure-direct-object-references
+- Video:
+  - https://www.youtube.com/watch?v=B_WESrC-wWs, 
+  - https://www.youtube.com/watch?v=gINAtzdccts&list=PLbyncTkpno5FAC0DJYuJrEqHSMdudEffw&index=6
 ## step 1 create 2 accounts 
 account 1
 ```bash
@@ -21,3 +24,9 @@ ticketid = 000325
 reservationid = 00324
 VIN = 3234234
 ```
+
+## Get request
+check if the id are sequentials
+
+## POST, PATCH, DEL
+don't try on accounts you don't own!
