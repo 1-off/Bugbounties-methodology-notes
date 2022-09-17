@@ -36,6 +36,13 @@ Searching for allowed tags to be inserted in the search field as parameter
 onmouseover=alert(document.location.has.substring(1))#payloadhere
 ```
 
+## DOM XSS
+```
+ <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
+ src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&color=%23ff5500&
+ auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+ ```
+
 ##  Exploiting DOM clobbering to enable XSS
 - [Two solutions for the January 2021 Initigriti XSS Challenge]([https://www.youtube.com/watch?v=Wbovgw3Qxxc](https://youtu.be/Wbovgw3Qxxc?t=912))
 - [portswigger/dom-based/dom-clobbering](https://portswigger.net/web-security/dom-based/dom-clobbering)
