@@ -23,8 +23,15 @@ nslookup -query=ANY $TARGET
 ## Passive Subdomain Enumeration
 - https://censys.io
 - https://crt.sh
+- certspotter
+- whoxy.com
+- subdomainizer(find keys)
+- subscraper
+- shodan.io
+- https://sslmate.com/help/reference/ct_search_api_v1
 - https://github.com/laramies/theHarvester
 
+#### crt bashs script
 ```bash
 export TARGET="facebook.com"
 curl -s "https://crt.sh/?q=${TARGET}&output=json" | jq -r '.[] | "\(.name_value)\n\(.common_name)"' | sort -u > "${TARGET}_crt.sh.txt"
@@ -39,10 +46,39 @@ export PORT="443"
 openssl s_client -ign_eof 2>/dev/null <<<$'HEAD / HTTP/1.0\r\n\r' -connect "${TARGET}:${PORT}" | openssl x509 -noout -text -in - | grep 'DNS' | sed -e 's|DNS:|\n|g' -e 's|^\*.*||g' | tr -d ',' | sort -u
 ```
 
-### harvester
+#### asn enumeration
+ASNs are assigned in blocks by Internet Assigned Numbers Authority (IANA) to regional Internet registries (RIRs). The appropriate RIR then assigns ASNs to entities within its designated area from the block assigned by IANA. 1
+- https://youtu.be/p4JgIu1mceI?t=969
+- hurricane electronic internet service bgp.he.net
+- metabigor
+```bash
+echo 'name' | metabigor net --org -v
+```
+```bash
+amas intel -asn <ASN number>
+```
+```
+crt.sh/?q=.%25<what are you looking for as subdomain>.%25.<domain>.<top level domain>
+crt.sh/?q=.%25api.%25.yahoo.com
+crt.sh/?q=.%25.%25.%25.%25.yahoo.com
+```
+```bash
+curl -s https://crt.sh/?q=%.$1 | sed 's/<\/\?[^>]+>//g' | grep $1
+```
+#### sublist3r
+  ```bash
+  sublist3r -d 'irobot.com'
+  ```
+#### httprobe
+  - https://github.com/tomnomnom/httprobe
+```bash
+cat recon/example/domains.txt | httprobe --prefer-https
+certspotter $TARGET | httprobe --prefer-https
+```
+
+#### harvester
 ```bash
 cat sources.txt
-
 baidu
 bufferoverun
 crtsh
@@ -57,26 +93,21 @@ urlscan
 vhost
 virustotal
 zoomeye
-```
-```bash
+
 export TARGET="facebook.com"
 cat sources.txt | while read source; do theHarvester -d "${TARGET}" -b $source -f "${source}_${TARGET}";done
-```
-Extract all subdomains
-```bash
+
 cat *.json | jq -r '.hosts[]' 2>/dev/null | cut -d':' -f 1 | sort -u > "${TARGET}_theHarvester.txt"
 cat facebook.com_*.txt | sort -u > facebook.com_subdomains_passive.txt
 cat facebook.com_subdomains_passive.txt | wc -l
 ```
 ---------------------------------------------------------------
 # Passive Infrastructure Identification
-Visiting ```https://sitereport.netcraft.com/?url=```
-Some interesting details we can observe from the report are:
-- Background 	General information about the domain, including the date it was first seen by Netcraft crawlers.
-- Network 	Information about the netblock owner, hosting company, nameservers, etc.
-- Hosting history 	Latest IPs used, webserver, and target OS. Sometimes we can spot the actual IP address from the webserver before it was placed behind a load balancer, web application firewall, or IDS, allowing us to connect directly to it if the configuration allows it. 
+- https://sitereport.netcraft.com/?url=
+- https://web.archive.org/  
+- https://builtwith.com/
+- securityheaders.com
 
-- checking old versions: https://web.archive.org/  It can very likely lead to us discovering forgotten assets, pages, etc., which can lead to discovering a flaw.
 ```bash
 go get github.com/tomnomnom/waybackurls
 waybackurls -dates https://facebook.com > waybackurls.txt
@@ -191,59 +222,14 @@ Found: atlas-pp-shv-04-sin6.facebook.com
 ```
 ## emails
 - https://hunter.io/
-## Subdomains enumeration
-![](/media/subdomain_enum.png)
-#### main links
-- https://search.censys.io/
-- certspotter
-- whoxy.com
-- subdomainizer(find keys)
-- subscraper
-- shodan.io
-- https://sslmate.com/help/reference/ct_search_api_v1
-- crt.sh
 
-#### asn enumeration
-ASNs are assigned in blocks by Internet Assigned Numbers Authority (IANA) to regional Internet registries (RIRs). The appropriate RIR then assigns ASNs to entities within its designated area from the block assigned by IANA. 1
-- https://youtu.be/p4JgIu1mceI?t=969
-- hurricane electronic internet service bgp.he.net
-- metabigor
-```bash
-echo 'name' | metabigor net --org -v
-```
-```bash
-amas intel -asn <ASN number>
-```
-```
-crt.sh/?q=.%25<what are you looking for as subdomain>.%25.<domain>.<top level domain>
-crt.sh/?q=.%25api.%25.yahoo.com
-crt.sh/?q=.%25.%25.%25.%25.yahoo.com
-```
-```bash
-curl -s https://crt.sh/?q=%.$1 | sed 's/<\/\?[^>]+>//g' | grep $1
-```
-- sublist3r
-  ```bash
-  sublist3r -d 'irobot.com'
-  ```
-- httprobe
-  - https://github.com/tomnomnom/httprobe
-```bash
-cat recon/example/domains.txt | httprobe --prefer-https
-certspotter $TARGET | httprobe --prefer-https
-```
+
 #### Spiders
 - hackrawler
 - gospider
 - 
 #### subdomain brutforcing
 - https://portswigger.net/burp/documentation/desktop/tutorials/enumerating-subdomains
-------------
-
-
-## Investigate the technology etc. 
-- https://builtwith.com/irobot.com
-- securityheaders.com
 - nikto (warning don't use it if you need to be stealth)
   ```bash
   nikto -h https://irobot.com
