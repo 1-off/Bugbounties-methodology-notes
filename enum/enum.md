@@ -3,12 +3,14 @@
 # Enumeration 
 
 # Domain and subdomains
-## whois
+#### whois
 ```bash
 whois <domain> | grep -e 'regex here'
 ```
-
-## DNS lookup
+#### emails
+- https://hunter.io/
+- 
+#### DNS lookup
 ```bash
 export TARGET=www.facebook.com
 dig facebook.com @1.1.1.1
@@ -114,6 +116,9 @@ waybackurls -dates https://facebook.com > waybackurls.txt
 cat waybackurls.txt
 ```
 
+#### https://www.wappalyzer.com/
+Find out the technology stack of any website. Create lists of websites that use certain technologies, with company and contact details. Use our tools for lead generation, market analysis and competitor research.
+
 --------------------------------------------------------------
 # Active Infrastructure Identification
 ## Web servers
@@ -146,9 +151,6 @@ Recognizes web technologies, including content management systems (CMS), bloggin
 ```bash
 whatweb -a3 https://www.facebook.com -v
 ```
-
-#### https://www.wappalyzer.com/
-Find out the technology stack of any website. Create lists of websites that use certain technologies, with company and contact details. Use our tools for lead generation, market analysis and competitor research.
 
 #### WafW00f 
 it is a web application firewall (WAF) fingerprinting tool that sends requests and analyses responses to determine if a security solution is in place. We can install it with the following command
@@ -220,8 +222,6 @@ Found: lert-api-shv-02-sin6.facebook.com
 Found: lert-api-shv-04-sin6.facebook.com
 Found: atlas-pp-shv-04-sin6.facebook.com
 ```
-## emails
-- https://hunter.io/
 
 
 #### Spiders
