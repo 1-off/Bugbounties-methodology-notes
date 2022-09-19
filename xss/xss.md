@@ -1,6 +1,6 @@
 # Xss
 
-## Theory
+<img src="[https://your-image-url.type](https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png)" width="50" height="50"> ## Theory
 
 ### types
 #### Stored (Persistent) 
