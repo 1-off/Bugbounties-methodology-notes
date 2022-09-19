@@ -1,8 +1,7 @@
 # Xss
 
-## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="50" height="50"> Theory
-
-### types
+## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80" height="80"> Theory
+### <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/gun.png" width="50" height="50"> types
 #### Stored (Persistent) 
 XSS 	The most critical type of XSS, which occurs when user input is stored on the back-end database and then displayed upon retrieval (e.g., posts or comments)
 
@@ -14,7 +13,7 @@ Occurs when user input is displayed on the page after being processed by the bac
 XSS type that occurs when user input is directly shown in the browser and is completely processed on the client-side, without reaching the back-end server (e.g., through client-side HTTP parameters or anchor tags)
 
 
-### Source & Sink
+### <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/gun.png" width="50" height="50"> Source & Sink
 
 To further understand the nature of the DOM-based XSS vulnerability, we must understand the concept of the Source and Sink of the object displayed on the page. The Source is the JavaScript object that takes the user input, and it can be any input parameter like a URL parameter or an input field, as we saw above.
 
@@ -33,7 +32,7 @@ jQuery library functions that write to DOM objects are:
 ------------------------------------------
 
 ## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="50" height="50"> xss bypass
-### innerHTML 
+### <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/gun.png" width="50" height="50"> innerHTML 
 The innerHTML function does not allow the use of the <script> tags within it as a security feature
 ```javascript
 document.getElementById("todo").innerHTML = "<b>Next Task:</b> " + decodeURIComponent(task);
@@ -43,7 +42,7 @@ As alternative it can be used something like
 <img src="" onerror=alert(window.origin)>
 ```
 
-### else
+### <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/gun.png" width="50" height="50"> else
 ```js
 <<a|ascript>alert('xss')</script>
 ```
