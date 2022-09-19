@@ -95,7 +95,6 @@ onmouseover=alert(document.location.has.substring(1))#payloadhere
  ```
 
 ## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="50" height="50">  Exploiting DOM clobbering to enable XSS
-<img src="https://i.redd.it/z8hid4itywd91.png" width="450" height="450">
 - [Two solutions for the January 2021 Initigriti XSS Challenge]([https://www.youtube.com/watch?v=Wbovgw3Qxxc](https://youtu.be/Wbovgw3Qxxc?t=912))
 - [portswigger/dom-based/dom-clobbering](https://portswigger.net/web-security/dom-based/dom-clobbering)
 - [portswigger/dom-based/Advanced-dom-clobbering](https://portswigger.net/research/dom-clobbering-strikes-back)
