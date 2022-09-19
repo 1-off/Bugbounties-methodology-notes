@@ -99,7 +99,7 @@ onmouseover=alert(document.location.has.substring(1))#payloadhere
 - [portswigger/dom-based/dom-clobbering](https://portswigger.net/web-security/dom-based/dom-clobbering)
 - [portswigger/dom-based/Advanced-dom-clobbering](https://portswigger.net/research/dom-clobbering-strikes-back)
 - [HTMLCollection](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCollection)
-![](https://i.redd.it/z8hid4itywd91.png)
+<img src="https://i.redd.it/z8hid4itywd91.png" width="250" height="250">
 #### Clobbering definition:
 To strike violently and repeatedly; batter or maul. But, In software engineering and Computer science, clobbering a file, Processor register or regions of computer memory is the process of overwriting its contents completely. 
 #### Explanation:
