@@ -1,4 +1,3 @@
-# Bugbounties-vulnerabilities
 
 ## IDOR
 
