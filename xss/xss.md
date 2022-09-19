@@ -1,18 +1,49 @@
 # Xss
-## types
-### Stored (Persistent) 
+
+## Theory
+
+### types
+#### Stored (Persistent) 
 XSS 	The most critical type of XSS, which occurs when user input is stored on the back-end database and then displayed upon retrieval (e.g., posts or comments)
 
-## Reflected (Non-Persistent) XSS 	
+#### Reflected (Non-Persistent) XSS 	
 Occurs when user input is displayed on the page after being processed by the backend server, but without being stored (e.g., search result or error message)
 
 
-## DOM-based XSS 	Another Non-Persistent 
+#### DOM-based XSS 	Another Non-Persistent 
 XSS type that occurs when user input is directly shown in the browser and is completely processed on the client-side, without reaching the back-end server (e.g., through client-side HTTP parameters or anchor tags)
 
 
+### Source & Sink
+
+To further understand the nature of the DOM-based XSS vulnerability, we must understand the concept of the Source and Sink of the object displayed on the page. The Source is the JavaScript object that takes the user input, and it can be any input parameter like a URL parameter or an input field, as we saw above.
+
+On the other hand, the Sink is the function that writes the user input to a DOM Object on the page. 
+```
+    document.write()
+    DOM.innerHTML
+    DOM.outerHTML
+
+jQuery library functions that write to DOM objects are:
+    add()
+    after()
+    append()
+```
+
+------------------------------------------
 
 ## xss bypass
+### innerHTML 
+The innerHTML function does not allow the use of the <script> tags within it as a security feature
+```javascript
+document.getElementById("todo").innerHTML = "<b>Next Task:</b> " + decodeURIComponent(task);
+```
+As alternative it can be used something like
+```javascript
+<img src="" onerror=alert(window.origin)>
+```
+
+### else
 ```js
 <<a|ascript>alert('xss')</script>
 ```
