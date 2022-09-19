@@ -131,7 +131,7 @@ As alternative it can be used something like
 <<a|ascript>alert('xss')</script>
 ```
 
-##  Deprecated Interface XXE injection
+## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80">   Deprecated Interface XXE injection
 Use a deprecated B2B interface that was not properly shut down. XML external entity injection (also known as XXE) is a web security vulnerability that allows an attacker to interfere with an application's processing of XML data.
 - search xxe payload
 - look for POST requests
@@ -173,7 +173,7 @@ Searching for allowed tags to be inserted in the search field as parameter
 ```
 onmouseover=alert(document.location.has.substring(1))#payloadhere
 ```
-## Stealing username and password with reflected xss
+## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80">  Stealing username and password with reflected xss
 - find a vulnerable page to xss
 - inject the following code as payload
 ```
