@@ -145,6 +145,9 @@ if (isset($_GET['c'])) {
 ## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80"> Discovery Xss
 #### Automated
 - Nessus, Burp Pro, or ZAP,  XSS Strike, Brute XSS, and XSSer
+- XSStrike is a Cross Site Scripting detection suite equipped with four hand written parsers, an intelligent payload generator, a powerful fuzzing engine and an incredibly fast crawler.
+
+Instead of injecting payloads and checking it works like all the other tools do, XSStrike analyses the response with multiple parsers and then crafts payloads that are guaranteed to work by context analysis integrated with a fuzzing engine
 ```bash 
 python xsstrike.py -u "http://SERVER_IP:PORT/index.php?task=test"
 ```
