@@ -14,12 +14,5 @@ The second tab, 'Positions', is where we place the payload position pointer, whi
 'Payloads', we get to choose and customize our payloads/wordlists.
 
 
-
-
-
-
-
-
-
 ## Shortcuts 
 - CTRL+I send it to Intruder
