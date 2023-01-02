@@ -3,14 +3,15 @@ Both Burp and ZAP provide additional features other than the default web proxy, 
 
 ## Methodology 
 
-### 1- intruder 
+### 1- Intruder 
 Burp's web fuzzer is called Burp Intruder
 #### Target
 locate our request, then right-click on the request and select Send to Intruder
 #### Positions
 The second tab, 'Positions', is where we place the payload position pointer, which is the point where words from our wordlist will be placed and iterated over. We will be demonstrating how to fuzz web directories, which is similar to what's done by tools like ffuf or gobuster.
-
-
+```To check whether a web directory exists, our fuzzing should be in 'GET /DIRECTORY/', such that existing pages would return 200 OK, otherwise we'd get 404 NOT FOUND. So, we will need to select DIRECTORY as the payload position, by either wrapping it with § or by selecting the word DIRECTORY and clicking on the the Add § button```
+#### Payload
+'Payloads', we get to choose and customize our payloads/wordlists.
 
 
 
